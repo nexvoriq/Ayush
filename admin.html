@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aayush999 Super Admin Control Panel</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #070b14;
+            --panel-bg: #10192d;
+            --panel-bg-alt: #16233b;
+            --accent-gold: #f5ad27;
+            --accent-gold-dark: #d8890b;
+            --border: #22324a;
+            --text-light: #f8fafc;
+            --text-muted: #9aa9bd;
+            --whatsapp-green: #25D366;
+            --danger-red: #e53e3e;
+            --success-green: #22c55b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-light); padding: 15px; }
+
+        /* Navigation Header */
+        .admin-header {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            padding: 16px 22px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .admin-header h1 { font-size: 20px; color: var(--accent-gold); display: flex; align-items: center; gap: 10px; font-weight: 800; }
+
+        .login-box {
+            max-width: 420px;
+            margin: 70px auto;
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .login-box h2 { font-size: 22px; color: var(--accent-gold); margin-bottom: 15px; font-weight: 700; }
+        .input-group { margin-bottom: 14px; text-align: left; }
+        .input-group label { display: block; font-size: 12px; margin-bottom: 5px; color: var(--text-muted); font-weight: 600; }
+        .input-group input, .input-group select {
+            width: 100%; padding: 10px 14px; background: #070a12; border: 1px solid var(--border);
+            color: #fff; border-radius: 8px; font-size: 13px; outline: none;
+        }
+        .input-group input:focus { border-color: var(--accent-gold); }
+        .btn-submit {
+            width: 100%; background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark));
+            color: #15100a; font-weight: 700; border: 0; padding: 11px; border-radius: 8px; cursor: pointer;
+            font-size: 14px; transition: transform 0.2s, background 0.2s;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-submit:hover { transform: translateY(-2px); }
+
+        /* Admin Dashboard Grid & Layout */
+        .dashboard-container { display: none; }
+        
+        /* Stats Summary Cards */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .stat-card {
+            background: var(--panel-bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .stat-card .info p { font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
+        .stat-card .info h2 { font-size: 22px; color: var(--accent-gold); margin-top: 2px; }
+        .stat-card .icon-box { font-size: 26px; color: var(--accent-gold); background: #18253f; padding: 12px; border-radius: 10px; }
+
+        /* Main Content Layout */
+        .grid-main { display: grid; grid-template-columns: 2.2fr 1fr; gap: 20px; }
+
+        .card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .card h3 {
+            font-size: 15px; color: var(--accent-gold); margin-bottom: 15px;
+            border-bottom: 1px dashed var(--border); padding-bottom: 8px;
+            display: flex; align-items: center; justify-content: space-between; font-weight: 700;
+        }
+
+        /* Market Control Table */
+        .market-table-wrap { overflow-x: auto; }
+        .market-row-item {
+            display: grid; grid-template-columns: 2fr 1.2fr 1fr 1fr 1.5fr; gap: 10px; align-items: center;
+            padding: 10px; background: #070b14; border: 1px solid var(--border);
+            border-radius: 8px; margin-bottom: 10px; font-size: 12px;
+        }
+        .market-row-item input {
+            padding: 6px 8px; background: #121c2e; border: 1px solid var(--border);
+            color: var(--accent-gold); font-weight: 700; border-radius: 6px; text-align: center; font-size: 12px; width: 100%;
+        }
+
+        /* Requests & Items */
+        .req-item {
+            background: #070b14; border: 1px solid var(--border); padding: 10px 12px; border-radius: 8px; margin-bottom: 8px; font-size: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .btn-action {
+            padding: 5px 12px; font-size: 11px; font-weight: 700; border-radius: 6px; border: 0; cursor: pointer; color: #fff;
+        }
+        .btn-approve { background: var(--success-green); }
+        .btn-reject { background: var(--danger-red); }
+
+        .alert-success {
+            background: rgba(34, 197, 94, 0.15); color: var(--success-green); padding: 10px;
+            border-radius: 6px; margin-top: 10px; display: none; text-align: center; font-size: 13px; font-weight: 600;
+        }
+
+        @media (max-width: 992px) {
+            .grid-main { grid-template-columns: 1fr; }
+            .market-row-item { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 576px) {
+            body { padding: 8px; }
+            .admin-header { flex-direction: column; text-align: center; }
+            .market-row-item { grid-template-columns: 1fr; gap: 6px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Login Box -->
+    <div class="login-box" id="loginBox">
+        <h2><i class="fa-solid fa-user-shield"></i> Super Admin Login</h2>
+        <div class="input-group">
+            <label>Admin Username</label>
+            <input type="text" id="adminUser" value="admin">
+        </div>
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="adminPass" placeholder="Enter password">
+        </div>
+        <button class="btn-submit" onclick="login()"><i class="fa-solid fa-right-to-bracket"></i> Login to Super Control Panel</button>
+        <p style="font-size: 11px; color: var(--text-muted); margin-top: 12px;">Default Credentials: <strong>admin / admin123</strong></p>
+    </div>
+
+    <!-- Main Dashboard Container -->
+    <div class="dashboard-container" id="dashboard">
+        <!-- Top Admin Bar -->
+        <div class="admin-header">
+            <h1><i class="fa-solid fa-crown"></i> Aayush999 Super Admin Dashboard</h1>
+            <div style="display: flex; gap: 10px;">
+                <a href="index.html" target="_blank" style="background: #20314a; color: #fff; padding: 8px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; text-decoration: none;"><i class="fa-solid fa-globe"></i> Live Website</a>
+                <button onclick="logout()" style="background: var(--danger-red); color: #fff; border: 0; padding: 8px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-power-off"></i> Logout</button>
+            </div>
+        </div>
+
+        <!-- Top Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="info">
+                    <p>Total Registered Users</p>
+                    <h2 id="statUsers">1,482</h2>
+                </div>
+                <div class="icon-box"><i class="fa-solid fa-users"></i></div>
+            </div>
+            <div class="stat-card">
+                <div class="info">
+                    <p>Today Bids Placed</p>
+                    <h2 id="statBids">₹3,42,850</h2>
+                </div>
+                <div class="icon-box"><i class="fa-solid fa-ticket"></i></div>
+            </div>
+            <div class="stat-card">
+                <div class="info">
+                    <p>Pending Deposits</p>
+                    <h2 id="statPendingDep">0</h2>
+                </div>
+                <div class="icon-box"><i class="fa-solid fa-wallet"></i></div>
+            </div>
+            <div class="stat-card">
+                <div class="info">
+                    <p>Pending Withdrawals</p>
+                    <h2 id="statPendingWit">0</h2>
+                </div>
+                <div class="icon-box"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+            </div>
+        </div>
+
+        <div class="grid-main">
+            <!-- Left Side: Market Controls & Game Rates -->
+            <div>
+                <!-- Markets & Results Manager -->
+                <div class="card">
+                    <h3><span><i class="fa-solid fa-sliders"></i> Full Market Control (18 Live Markets)</span> <small style="font-size: 11px; color: var(--text-muted);">Real-time Auto Sync</small></h3>
+                    <div style="display: grid; grid-template-columns: 2fr 1.2fr 1fr 1fr 1.5fr; font-size: 11px; font-weight: 700; color: var(--text-muted); padding: 0 10px 6px; border-bottom: 1px solid var(--border); margin-bottom: 10px;" class="market-header-row">
+                        <span>MARKET NAME</span>
+                        <span>RESULT (PANEL)</span>
+                        <span>OPEN TIME</span>
+                        <span>CLOSE TIME</span>
+                        <span>STATUS</span>
+                    </div>
+                    <div id="marketsList"></div>
+                    <button class="btn-submit" onclick="saveData()"><i class="fa-solid fa-floppy-disk"></i> Save & Publish All Markets</button>
+                    <div class="alert-success" id="successMsg">⚡ All changes updated and live on website!</div>
+                </div>
+
+                <!-- Game Rates Master -->
+                <div class="card">
+                    <h3><i class="fa-solid fa-sack-dollar"></i> Game Payout Rates Master</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+                        <div class="input-group"><label>Single Digit (₹1 : ₹)</label><input type="text" id="rateSingle" value="9.5"></div>
+                        <div class="input-group"><label>Jodi Digit (₹1 : ₹)</label><input type="text" id="rateJodi" value="95"></div>
+                        <div class="input-group"><label>Single Pana (₹1 : ₹)</label><input type="text" id="rateSinglePana" value="150"></div>
+                        <div class="input-group"><label>Double Pana (₹1 : ₹)</label><input type="text" id="rateDoublePana" value="300"></div>
+                        <div class="input-group"><label>Triple Pana (₹1 : ₹)</label><input type="text" id="rateTriplePana" value="900"></div>
+                        <div class="input-group"><label>Full Sangam (₹1 : ₹)</label><input type="text" id="rateSangam" value="10000"></div>
+                    </div>
+                    <button class="btn-submit" onclick="saveData()"><i class="fa-solid fa-floppy-disk"></i> Update Rates</button>
+                </div>
+            </div>
+
+            <!-- Right Side: Deposit/Withdrawal Approval & Admin Payment Settings -->
+            <div>
+                <!-- User Deposit Requests -->
+                <div class="card">
+                    <h3><i class="fa-solid fa-money-check-dollar"></i> Pending Deposit Requests</h3>
+                    <div id="depositReqList"><p style="font-size: 12px; color: var(--text-muted);">No pending deposit requests.</p></div>
+                </div>
+
+                <!-- User Withdrawal Requests -->
+                <div class="card">
+                    <h3><i class="fa-solid fa-hand-holding-dollar"></i> Pending Withdrawal Requests</h3>
+                    <div id="withdrawReqList"><p style="font-size: 12px; color: var(--text-muted);">No pending withdrawal requests.</p></div>
+                </div>
+
+                <!-- Admin Deposit Details Setup -->
+                <div class="card">
+                    <h3><i class="fa-solid fa-qrcode"></i> Admin Deposit & Payment Setup</h3>
+                    <div class="input-group">
+                        <label>Admin Official UPI ID (Shown to Users)</label>
+                        <input type="text" id="adminUpiInput" value="aayushpay@upi">
+                    </div>
+                    <div class="input-group">
+                        <label>Admin Bank Account Details</label>
+                        <input type="text" id="adminBankInput" value="A/C 1234567890, IFSC: SBIN0001234">
+                    </div>
+                    <button class="btn-submit" onclick="saveData()"><i class="fa-solid fa-check-circle"></i> Save Deposit Details</button>
+                </div>
+
+                <!-- Website Global Settings -->
+                <div class="card">
+                    <h3><i class="fa-solid fa-gear"></i> Website Global Controls</h3>
+                    <div class="input-group">
+                        <label>WhatsApp Contact Number</label>
+                        <input type="text" id="waNumberInput" value="8669395046">
+                    </div>
+                    <div class="input-group">
+                        <label>App Download URL (Google Drive / Direct Link)</label>
+                        <input type="text" id="appLinkInput" value="https://drive.google.com/file/d/11gYr_ObNlKdvnXKF_nmxlM_SgANQa2ns/view?usp=sharing">
+                    </div>
+                    <div class="input-group">
+                        <label>Top Announcement Ticker Text</label>
+                        <input type="text" id="tickerInput" value="⚡ Welcome to Aayush999 • Official WhatsApp: +91-8669395046 • Instant Withdrawals ⚡">
+                    </div>
+                    <button class="btn-submit" onclick="saveData()"><i class="fa-solid fa-arrows-rotate"></i> Update Global Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Control Code -->
+    <script>
+        let defaultMarkets = [
+            ["AAYUSH MORNING", "124-78-378", "10:30 AM", "11:30 AM", "day"],
+            ["SRIDEVI MORNING", "359-70-145", "11:00 AM", "12:00 PM", "day"],
+            ["SRIDEVI", "130-49-234", "11:35 AM", "12:35 PM", "day"],
+            ["TIME BAZAR", "479-02-138", "01:00 PM", "02:00 PM", "day"],
+            ["MADHUR DAY", "145-03-670", "01:15 PM", "02:15 PM", "day"],
+            ["MILAN DAY", "280-05-230", "03:00 PM", "05:00 PM", "day"],
+            ["RAJDHANI DAY", "589-23-148", "03:15 PM", "05:15 PM", "day"],
+            ["SUPREME DAY", "167-44-888", "03:30 PM", "05:30 PM", "day"],
+            ["AAYUSH DAY", "234-90-569", "03:35 PM", "05:35 PM", "day"],
+            ["KALYAN", "120-34-400", "03:45 PM", "05:45 PM", "day"],
+            ["SRIDEVI NIGHT", "110-25-348", "06:30 PM", "07:30 PM", "night"],
+            ["MADHUR NIGHT", "678-12-345", "07:00 PM", "08:00 PM", "night"],
+            ["MILAN NIGHT", "246-29-199", "08:30 PM", "10:30 PM", "night"],
+            ["RAJDHANI NIGHT", "489-11-236", "09:00 PM", "11:00 PM", "night"],
+            ["KALYAN NIGHT", "379-91-489", "09:25 PM", "11:30 PM", "night"],
+            ["MAIN BAZAR", "129-22-679", "09:30 PM", "11:45 PM", "night"],
+            ["AAYUSH BAZAR", "158-40-280", "09:40 PM", "12:05 AM", "night"],
+            ["AAYUSH NIGHT", "230-55-140", "10:00 PM", "12:15 AM", "night"]
+        ];
+
+        let currentData = JSON.parse(localStorage.getItem("aayush999_shared_data")) || {
+            markets: defaultMarkets,
+            whatsapp: "8669395046",
+            appLink: "https://drive.google.com/file/d/11gYr_ObNlKdvnXKF_nmxlM_SgANQa2ns/view?usp=sharing",
+            tickerText: "⚡ Welcome to Aayush999 • Official WhatsApp: +91-8669395046 • Instant Direct Link Available ⚡",
+            adminUpi: "aayushpay@upi",
+            adminBank: "A/C 1234567890, IFSC: SBIN0001234"
+        };
+
+        function login() {
+            const pass = document.getElementById("adminPass").value;
+            if (pass === "admin123" || pass === "admin") {
+                document.getElementById("loginBox").style.display = "none";
+                document.getElementById("dashboard").style.display = "block";
+                renderAdminMarkets();
+                renderRequests();
+            } else {
+                alert("Wrong password! Default password is: admin123");
+            }
+        }
+
+        function logout() {
+            document.getElementById("loginBox").style.display = "block";
+            document.getElementById("dashboard").style.display = "none";
+        }
+
+        function renderAdminMarkets() {
+            const list = document.getElementById("marketsList");
+            list.innerHTML = "";
+            currentData.markets.forEach((m, idx) => {
+                const row = document.createElement("div");
+                row.className = "market-row-item";
+                row.innerHTML = `
+                    <input type="text" id="mname_${idx}" value="${m[0]}">
+                    <input type="text" id="mres_${idx}" value="${m[1]}">
+                    <input type="text" id="mopen_${idx}" value="${m[2]}">
+                    <input type="text" id="mclose_${idx}" value="${m[3]}">
+                    <select id="mstatus_${idx}" style="padding:6px; background:#121c2e; border:1px solid var(--border); color:#fff; border-radius:6px; font-weight:600;">
+                        <option value="day" ${m[4]==='day'?'selected':''}>DAY</option>
+                        <option value="night" ${m[4]==='night'?'selected':''}>NIGHT</option>
+                    </select>
+                `;
+                list.appendChild(row);
+            });
+            document.getElementById("waNumberInput").value = currentData.whatsapp || "8669395046";
+            document.getElementById("appLinkInput").value = currentData.appLink || "https://drive.google.com/file/d/11gYr_ObNlKdvnXKF_nmxlM_SgANQa2ns/view?usp=sharing";
+            document.getElementById("tickerInput").value = currentData.tickerText || "⚡ Welcome to Aayush999 • Official WhatsApp: +91-8669395046 ⚡";
+            document.getElementById("adminUpiInput").value = currentData.adminUpi || "aayushpay@upi";
+            document.getElementById("adminBankInput").value = currentData.adminBank || "A/C 1234567890, IFSC: SBIN0001234";
+        }
+
+        function renderRequests() {
+            let reqs = JSON.parse(localStorage.getItem("aayush999_admin_requests")) || { deposits: [], withdrawals: [] };
+            
+            document.getElementById("statPendingDep").textContent = reqs.deposits.length;
+            document.getElementById("statPendingWit").textContent = reqs.withdrawals.length;
+
+            const depList = document.getElementById("depositReqList");
+            depList.innerHTML = reqs.deposits.length ? "" : '<p style="font-size: 12px; color: var(--text-muted);">No pending deposit requests.</p>';
+            reqs.deposits.forEach((d, i) => {
+                depList.innerHTML += `<div class="req-item">
+                    <span><b>${d.user}</b> (${d.mobile}): <strong style="color:var(--accent-gold);">₹${d.amount}</strong></span> 
+                    <button class="btn-action btn-approve" onclick="approveDeposit(${i})">Approve & Add Funds</button>
+                </div>`;
+            });
+
+            const witList = document.getElementById("withdrawReqList");
+            witList.innerHTML = reqs.withdrawals.length ? "" : '<p style="font-size: 12px; color: var(--text-muted);">No pending withdrawal requests.</p>';
+            reqs.withdrawals.forEach((w, i) => {
+                witList.innerHTML += `<div class="req-item">
+                    <span><b>${w.user}</b>: <strong style="color:var(--accent-gold);">₹${w.amount}</strong> (${w.upi})</span> 
+                    <button class="btn-action btn-approve" onclick="approveWithdrawal(${i})">Mark Paid</button>
+                </div>`;
+            });
+        }
+
+        function approveDeposit(index) {
+            let reqs = JSON.parse(localStorage.getItem("aayush999_admin_requests"));
+            let dep = reqs.deposits.splice(index, 1)[0];
+            localStorage.setItem("aayush999_admin_requests", JSON.stringify(reqs));
+            
+            let user = JSON.parse(localStorage.getItem("aayush999_logged_user"));
+            if(user) {
+                user.wallet += dep.amount;
+                localStorage.setItem("aayush999_logged_user", JSON.stringify(user));
+            }
+            alert("Deposit of ₹" + dep.amount + " approved successfully!");
+            renderRequests();
+        }
+
+        function approveWithdrawal(index) {
+            let reqs = JSON.parse(localStorage.getItem("aayush999_admin_requests"));
+            reqs.withdrawals.splice(index, 1);
+            localStorage.setItem("aayush999_admin_requests", JSON.stringify(reqs));
+            alert("Withdrawal marked as paid!");
+            renderRequests();
+        }
+
+        function saveData() {
+            currentData.markets.forEach((m, idx) => {
+                const name = document.getElementById(`mname_${idx}`).value;
+                const res = document.getElementById(`mres_${idx}`).value;
+                const open = document.getElementById(`mopen_${idx}`).value;
+                const close = document.getElementById(`mclose_${idx}`).value;
+                const status = document.getElementById(`mstatus_${idx}`).value;
+                if (name) m[0] = name;
+                if (res) m[1] = res;
+                if (open) m[2] = open;
+                if (close) m[3] = close;
+                if (status) m[4] = status;
+            });
+            currentData.whatsapp = document.getElementById("waNumberInput").value;
+            currentData.appLink = document.getElementById("appLinkInput").value;
+            currentData.tickerText = document.getElementById("tickerInput").value;
+            currentData.adminUpi = document.getElementById("adminUpiInput").value;
+            currentData.adminBank = document.getElementById("adminBankInput").value;
+
+            localStorage.setItem("aayush999_shared_data", JSON.stringify(currentData));
+
+            const alertBox = document.getElementById("successMsg");
+            alertBox.style.display = "block";
+            setTimeout(() => { alertBox.style.display = "none"; }, 3000);
+        }
+    </script>
+</body>
+</html>

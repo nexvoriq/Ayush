@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aayush999 | Official Live Results, Wallet & Gaming Portal</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #070b14;
+            --panel-bg: #10192d;
+            --panel-bg-alt: #16233b;
+            --accent-gold: #f5ad27;
+            --accent-gold-dark: #d8890b;
+            --whatsapp-green: #25D366;
+            --text-light: #f8fafc;
+            --text-muted: #9aa9bd;
+            --border-line: #22324a;
+            --status-open-bg: #123c32;
+            --status-open-text: #5be0b0;
+            --status-closed-bg: #482329;
+            --status-closed-text: #ff9b9f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-main); color: var(--text-light); line-height: 1.6; }
+        a { color: inherit; text-decoration: none; }
+
+        /* Top Announcement Ticker */
+        .ticker-bar {
+            height: 36px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(90deg, #89520b, var(--accent-gold), #89520b);
+            color: #15100a;
+            font-size: 12px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+        .ticker-bar span { display: inline-block; padding-left: 100%; animation: marquee 25s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+        /* Header Navigation */
+        header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(10, 17, 30, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-line);
+            padding: 14px 5%;
+            display: flex; align-items: center; justify-content: space-between; gap: 20px;
+        }
+        .logo { font-size: 26px; font-weight: 800; color: var(--accent-gold); letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
+        nav ul { list-style: none; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+        nav a { color: #dbe4ef; font-size: 13px; font-weight: 600; padding: 8px 12px; border-radius: 8px; transition: 0.3s; }
+        nav a:hover { background: #20314a; color: var(--accent-gold); }
+        .header-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; border-radius: 24px; padding: 9px 18px; font-size: 13px; font-weight: 700; cursor: pointer; border: 0; transition: transform 0.2s; }
+        .btn:hover { transform: scale(1.04); }
+        .btn-gold { background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: #171006; box-shadow: 0 4px 14px rgba(245, 173, 39, 0.3); }
+        .btn-whatsapp { background: var(--whatsapp-green); color: #fff; }
+        .btn-wallet { background: #1e293b; color: var(--accent-gold); border: 1px solid var(--accent-gold); }
+
+        /* Hero Banner */
+        .hero { text-align: center; padding: 60px 20px 50px; background: radial-gradient(ellipse at 50% 0%, #1f2b4e 0%, #0d1526 48%, var(--bg-main) 100%); }
+        .hero h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 800; color: var(--accent-gold); text-shadow: 0 4px 25px rgba(245, 173, 39, 0.3); }
+        .hero p { margin: 12px auto 20px; color: #dce5f0; font-size: clamp(15px, 2vw, 18px); font-weight: 500; }
+        .rotator-banner { display: inline-block; padding: 10px 24px; border: 1px solid rgba(245, 173, 39, 0.4); border-radius: 30px; background: rgba(255, 255, 255, 0.05); color: #fff; font-size: 14px; transition: opacity 0.3s; }
+
+        /* Trust Cards */
+        .trust-section { padding: 35px 5%; background: #0d1424; border-y: 1px solid var(--border-line); }
+        .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .trust-card { background: var(--panel-bg); border: 1px solid var(--border-line); border-radius: 12px; padding: 20px 15px; text-align: center; transition: 0.3s; }
+        .trust-card:hover { border-color: var(--accent-gold); transform: translateY(-3px); }
+        .trust-card i { font-size: 26px; color: var(--accent-gold); margin-bottom: 8px; }
+        .trust-card h3 { font-size: 15px; font-weight: 700; }
+        .trust-card p { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+        /* Winners Section */
+        .winners-section { padding: 40px 5%; }
+        .section-head { text-align: center; margin-bottom: 25px; }
+        .section-head h2 { font-size: clamp(22px, 3vw, 28px); font-weight: 700; }
+        .section-head h2 i { color: var(--accent-gold); margin-right: 8px; }
+        .section-head p { color: var(--text-muted); font-size: 13px; margin-top: 4px; }
+        .winners-row { display: flex; gap: 14px; overflow-x: auto; padding: 5px 2px 15px; scrollbar-width: thin; }
+        .winner-card { position: relative; min-width: 165px; text-align: center; background: var(--panel-bg); border: 1px solid var(--border-line); border-radius: 12px; padding: 16px 12px; }
+        .winner-rank { position: absolute; top: -8px; left: 10px; color: #181108; background: var(--accent-gold); font-size: 10px; font-weight: 800; border-radius: 20px; padding: 2px 8px; }
+        .winner-card strong { display: block; font-size: 14px; margin: 8px 0 2px; }
+        .winner-card .amount { color: #21c58b; font-size: 15px; font-weight: 700; }
+
+        /* Markets Grid */
+        .market-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; padding: 0 5%; }
+        .market-card { position: relative; background: linear-gradient(145deg, var(--panel-bg-alt), var(--panel-bg)); border: 1px solid var(--border-line); border-radius: 13px; padding: 18px; transition: transform 0.2s, border-color 0.2s; }
+        .market-card:hover { transform: translateY(-4px); border-color: var(--accent-gold); }
+        .market-card h3 { font-size: 16px; color: var(--accent-gold); margin-bottom: 8px; padding-right: 60px; }
+        .market-status { position: absolute; right: 14px; top: 14px; border-radius: 20px; padding: 3px 10px; font-size: 10px; font-weight: 700; }
+        .status-day { color: var(--status-open-text); background: var(--status-open-bg); }
+        .status-night { color: var(--status-closed-text); background: var(--status-closed-bg); }
+        .market-result { background: #050811; border: 1px solid #22324a; border-radius: 8px; text-align: center; padding: 10px; font-size: 22px; font-weight: 800; letter-spacing: 2px; color: #fff; margin: 10px 0; }
+        .market-time { display: flex; justify-content: space-between; color: var(--text-muted); font-size: 11px; border-top: 1px dashed var(--border-line); padding-top: 8px; }
+        .chart-actions { display: flex; gap: 8px; margin-top: 12px; }
+        .chart-btn { flex: 1; text-align: center; background: #20314a; color: #fff; border-radius: 6px; padding: 7px; font-size: 11px; font-weight: 600; border: 0; cursor: pointer; }
+        .chart-btn:hover { background: var(--accent-gold); color: #171006; }
+        .play-btn { width: 100%; margin-top: 8px; background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark)); color: #15100a; font-weight: 700; border-radius: 6px; padding: 8px; font-size: 12px; border: 0; cursor: pointer; }
+
+        /* Extra Section */
+        .extra-section { padding: 40px 5%; }
+        .two-col-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+        .panel-box { background: var(--panel-bg); border: 1px solid var(--border-line); border-radius: 13px; padding: 22px; }
+        .panel-box h3 { font-size: 18px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .panel-box h3 i { color: var(--accent-gold); }
+        .slot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .slot-item { background: #060a14; border: 1px solid var(--border-line); border-radius: 8px; text-align: center; padding: 9px 5px; }
+        .slot-item span { display: block; color: var(--text-muted); font-size: 10px; }
+        .slot-item strong { color: var(--accent-gold); font-size: 13px; }
+
+        /* Rates Table */
+        .rates-section { padding: 40px 5%; }
+        .table-wrap { overflow-x: auto; border: 1px solid var(--border-line); border-radius: 12px; background: var(--panel-bg); }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { text-align: left; padding: 14px 18px; border-bottom: 1px solid var(--border-line); font-size: 13px; }
+        th { background: #17233c; color: var(--accent-gold); font-weight: 700; }
+        td:last-child { color: var(--accent-gold); font-weight: 700; }
+
+        /* Footer */
+        footer { background: #050810; border-top: 1px solid var(--border-line); padding: 30px 5%; text-align: center; color: var(--text-muted); font-size: 12px; }
+        .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin-bottom: 15px; }
+        .footer-links a:hover { color: var(--accent-gold); }
+
+        /* Modals */
+        .modal-backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 500; }
+        .modal-backdrop.open { display: flex; }
+        .modal-body { width: min(440px, 100%); background: #10192d; border: 1px solid var(--border-line); border-radius: 15px; padding: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.6); position: relative; max-height: 90vh; overflow-y: auto; }
+        .modal-body h3 { font-size: 18px; color: var(--accent-gold); margin-bottom: 15px; }
+        .modal-close { position: absolute; right: 15px; top: 15px; border: 0; background: transparent; color: #fff; font-size: 22px; cursor: pointer; }
+        .form-control { width: 100%; padding: 10px 14px; background: #070b14; border: 1px solid var(--border-line); color: #fff; border-radius: 8px; font-size: 14px; margin-bottom: 12px; }
+        .form-label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+
+        /* Responsive Fixes */
+        @media (max-width: 768px) {
+            header { padding: 10px 3%; flex-direction: column; gap: 10px; }
+            nav ul { justify-content: center; gap: 4px; }
+            nav a { padding: 6px 8px; font-size: 11px; }
+            .header-actions { width: 100%; justify-content: center; flex-wrap: wrap; }
+            .hero { padding: 40px 15px 30px; }
+            .hero h1 { font-size: 28px; }
+            .market-grid { grid-template-columns: 1fr; padding: 0 3%; }
+            .two-col-grid { grid-template-columns: 1fr; }
+            .trust-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Announcement Bar -->
+    <div class="ticker-bar" aria-label="Announcement">
+        <span id="tickerText">⚡ Welcome to Aayush999 • Official WhatsApp: +91-8669395046 • Download App: Instant Direct Link Available • Real-time Results & Fast Withdrawals ⚡</span>
+    </div>
+
+    <!-- Header Nav -->
+    <header>
+        <a class="logo" href="#home"><i class="fa-solid fa-crown"></i>Aayush999</a>
+        <nav>
+            <ul>
+                <li><a href="#markets">Markets</a></li>
+                <li><a href="#winners">Winners</a></li>
+                <li><a href="#starline">Starline</a></li>
+                <li><a href="#jackpot">Jackpot</a></li>
+                <li><a href="#rates">Game Rates</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <button class="btn btn-wallet" id="walletBtn" onclick="openWalletModal()"><i class="fa-solid fa-wallet"></i> ₹<span id="navWallet">1000</span></button>
+            <button class="btn btn-gold" id="authBtn" onclick="openAuthModal()"><i class="fa-solid fa-user"></i> Login</button>
+            <a id="waBtnLink" href="https://wa.me/918669395046" class="btn btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+            <a id="appBtnLink" href="https://drive.google.com/file/d/11gYr_ObNlKdvnXKF_nmxlM_SgANQa2ns/view?usp=sharing" target="_blank" class="btn btn-gold"><i class="fa-solid fa-download"></i> App Download</a>
+        </div>
+    </header>
+
+    <main id="home">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Welcome to Aayush999</h1>
+            <p>Play Smart. Win Big. Daily Charts, Wallet & Live Results Portal</p>
+            <div class="rotator-banner" id="rotator" aria-live="polite">Aayush999: Welcome to new beginnings ✨</div>
+        </section>
+
+        <!-- Trust Badges Section -->
+        <section class="trust-section">
+            <div class="trust-grid">
+                <div class="trust-card"><i class="fa-solid fa-star"></i><h3>5 Star Rated</h3><p>Players’ Top Choice</p></div>
+                <div class="trust-card"><i class="fa-solid fa-bolt"></i><h3>Fast Withdrawal</h3><p>No Delay Payments</p></div>
+                <div class="trust-card"><i class="fa-solid fa-headset"></i><h3>24/7 Live Help</h3><p>Dedicated VIP Support</p></div>
+                <div class="trust-card"><i class="fa-solid fa-shield-halved"></i><h3>100% Safe & Secure</h3><p>Fully Protected System</p></div>
+            </div>
+        </section>
+
+        <!-- Top Winners Section -->
+        <section class="winners-section" id="winners">
+            <div class="section-head">
+                <h2><i class="fa-solid fa-trophy"></i> Today’s Top Winners</h2>
+                <p>Live payout highlights of our top players today</p>
+            </div>
+            <div class="winners-row">
+                <div class="winner-card"><span class="winner-rank">#1</span><strong>Amit Sharma</strong><div class="amount">₹94,120</div></div>
+                <div class="winner-card"><span class="winner-rank">#2</span><strong>Neha Verma</strong><div class="amount">₹91,470</div></div>
+                <div class="winner-card"><span class="winner-rank">#3</span><strong>Rahul Singh</strong><div class="amount">₹88,250</div></div>
+                <div class="winner-card"><span class="winner-rank">#4</span><strong>Pooja Patel</strong><div class="amount">₹84,915</div></div>
+                <div class="winner-card"><span class="winner-rank">#5</span><strong>Vikram Roy</strong><div class="amount">₹80,360</div></div>
+                <div class="winner-card"><span class="winner-rank">#6</span><strong>Sunita Das</strong><div class="amount">₹77,540</div></div>
+                <div class="winner-card"><span class="winner-rank">#7</span><strong>Manish Kumar</strong><div class="amount">₹71,285</div></div>
+                <div class="winner-card"><span class="winner-rank">#8</span><strong>Anjali Sen</strong><div class="amount">₹64,720</div></div>
+                <div class="winner-card"><span class="winner-rank">#9</span><strong>Deepak Joshi</strong><div class="amount">₹58,190</div></div>
+                <div class="winner-card"><span class="winner-rank">#10</span><strong>Kiran Mehta</strong><div class="amount">₹53,465</div></div>
+            </div>
+        </section>
+
+        <!-- All Live Markets Section -->
+        <section class="winners-section" id="markets">
+            <div class="section-head">
+                <h2><i class="fa-solid fa-chart-column"></i> All Live Markets & Results</h2>
+                <p>Daily Open/Close timing, Jodi & Pana chart records</p>
+            </div>
+            <div class="market-grid" id="marketGrid"></div>
+        </section>
+
+        <!-- Starline & Jackpot Section -->
+        <section class="extra-section">
+            <div class="two-col-grid">
+                <div class="panel-box" id="starline">
+                    <h3><i class="fa-solid fa-star"></i> Starline Hourly Slots</h3>
+                    <div class="slot-grid" id="starlineSlots"></div>
+                </div>
+                <div class="panel-box" id="jackpot">
+                    <h3><i class="fa-solid fa-gem"></i> Jackpot Hourly Slots</h3>
+                    <div class="slot-grid" id="jackpotSlots"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Game Rates Section -->
+        <section class="rates-section" id="rates">
+            <div class="section-head">
+                <h2><i class="fa-solid fa-sack-dollar"></i> Game Payout Rates</h2>
+                <p>Best winning rates in the market</p>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>Category</th><th>Investment</th><th>Winning Rate</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Single Digit</td><td>₹1</td><td>₹9.5</td></tr>
+                        <tr><td>Jodi Digit</td><td>₹1</td><td>₹95</td></tr>
+                        <tr><td>Single Pana</td><td>₹1</td><td>₹150</td></tr>
+                        <tr><td>Double Pana</td><td>₹1</td><td>₹300</td></tr>
+                        <tr><td>Triple Pana</td><td>₹1</td><td>₹900</td></tr>
+                        <tr><td>Red Brackets</td><td>₹1</td><td>₹95</td></tr>
+                        <tr><td>Half Sangam A</td><td>₹1</td><td>₹1,000</td></tr>
+                        <tr><td>Half Sangam B</td><td>₹1</td><td>₹1,000</td></tr>
+                        <tr><td>Full Sangam Digits</td><td>₹1</td><td>₹10,000</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#home">Home</a><a href="#markets">Markets</a><a href="#starline">Starline</a><a href="#jackpot">Jackpot</a><a href="#rates">Game Rates</a>
+        </div>
+        <p>© <span id="year"></span> Aayush999. All rights reserved.</p>
+    </footer>
+
+    <!-- Chart Modal Popup -->
+    <div class="modal-backdrop" id="chartModal" role="dialog" aria-modal="true">
+        <div class="modal-body">
+            <button class="modal-close" onclick="closeModal('chartModal')">&times;</button>
+            <h3 id="modalTitle">Chart Information</h3>
+            <p id="modalText" style="font-size: 13px; color: var(--text-muted);"></p>
+        </div>
+    </div>
+
+    <!-- Auth / Login Modal -->
+    <div class="modal-backdrop" id="authModal" role="dialog">
+        <div class="modal-body">
+            <button class="modal-close" onclick="closeModal('authModal')">&times;</button>
+            <h3 id="authTitle"><i class="fa-solid fa-user-lock"></i> User Login</h3>
+            <div id="loginFormContainer">
+                <label class="form-label">Mobile Number</label>
+                <input type="text" id="loginMobile" class="form-control" placeholder="Enter 10-digit mobile">
+                <label class="form-label">Password</label>
+                <input type="password" id="loginPass" class="form-control" placeholder="Enter password">
+                <button class="btn btn-gold" style="width: 100%; justify-content: center; margin-top: 10px;" onclick="handleLogin()">Login</button>
+                <p style="text-align: center; font-size: 12px; margin-top: 15px; color: var(--text-muted);">Don't have an account? <a href="#" onclick="toggleAuthMode()" style="color: var(--accent-gold); font-weight: 600;">Register Now</a></p>
+            </div>
+            <div id="registerFormContainer" style="display: none;">
+                <label class="form-label">Full Name</label>
+                <input type="text" id="regName" class="form-control" placeholder="Enter your name">
+                <label class="form-label">Mobile Number</label>
+                <input type="text" id="regMobile" class="form-control" placeholder="Enter 10-digit mobile">
+                <label class="form-label">Create Password</label>
+                <input type="password" id="regPass" class="form-control" placeholder="Create password">
+                <button class="btn btn-gold" style="width: 100%; justify-content: center; margin-top: 10px;" onclick="handleRegister()">Register & Get ₹500 Bonus</button>
+                <p style="text-align: center; font-size: 12px; margin-top: 15px; color: var(--text-muted);">Already registered? <a href="#" onclick="toggleAuthMode()" style="color: var(--accent-gold); font-weight: 600;">Login Here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Betting Modal -->
+    <div class="modal-backdrop" id="biddingModal" role="dialog">
+        <div class="modal-body">
+            <button class="modal-close" onclick="closeModal('biddingModal')">&times;</button>
+            <h3 id="biddingMarketTitle">Place Bid</h3>
+            <label class="form-label">Select Game Type</label>
+            <select id="gameType" class="form-control">
+                <option value="Single Digit">Single Digit (Rate 1:9.5)</option>
+                <option value="Jodi Digit">Jodi Digit (Rate 1:95)</option>
+                <option value="Single Pana">Single Pana (Rate 1:150)</option>
+                <option value="Double Pana">Double Pana (Rate 1:300)</option>
+                <option value="Triple Pana">Triple Pana (Rate 1:900)</option>
+            </select>
+            <label class="form-label">Enter Digit / Pana</label>
+            <input type="text" id="bidDigit" class="form-control" placeholder="e.g. 5 or 123">
+            <label class="form-label">Enter Amount (₹)</label>
+            <input type="number" id="bidAmount" class="form-control" placeholder="Min ₹10">
+            <button class="btn btn-gold" style="width: 100%; justify-content: center; margin-top: 10px;" onclick="submitBid()">Submit Bid</button>
+        </div>
+    </div>
+
+    <!-- Wallet / Profile / Withdrawal Modal -->
+    <div class="modal-backdrop" id="walletModal" role="dialog">
+        <div class="modal-body">
+            <button class="modal-close" onclick="closeModal('walletModal')">&times;</button>
+            <h3><i class="fa-solid fa-wallet"></i> My Wallet & Profile Completion</h3>
+            <div style="background: #070b14; padding: 15px; border-radius: 10px; margin-bottom: 15px; text-align: center;">
+                <p style="font-size: 12px; color: var(--text-muted);">Available Balance</p>
+                <h2 style="color: var(--accent-gold); font-size: 28px;">₹<span id="modalWalletBalance">1000</span></h2>
+            </div>
+            
+            <!-- Admin Deposit Details Banner for Users -->
+            <div id="adminDepositInfoBox" style="background: #1e293b; border: 1px dashed var(--accent-gold); padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+                <h4 style="font-size: 13px; color: var(--accent-gold); margin-bottom: 4px;"><i class="fa-solid fa-qrcode"></i> Official Deposit UPI / Bank Details</h4>
+                <p id="displayAdminUpi" style="font-size: 13px; color: #fff; font-weight: 600;">UPI ID: aayushpay@upi</p>
+                <p id="displayAdminBank" style="font-size: 12px; color: var(--text-muted);">Bank: A/C 1234567890, IFSC: SBIN0001234</p>
+            </div>
+
+            <div style="margin-bottom: 15px;">
+                <h4 style="font-size: 14px; color: var(--accent-gold); margin-bottom: 8px;"><i class="fa-solid fa-user-pen"></i> Complete Bank / UPI Profile</h4>
+                <label class="form-label">Google Pay / PhonePe / Paytm UPI ID</label>
+                <input type="text" id="userUpi" class="form-control" placeholder="e.g. username@oksbi">
+                <label class="form-label">Bank Account Number & IFSC</label>
+                <input type="text" id="userBank" class="form-control" placeholder="A/C No & IFSC code">
+                <button class="btn" style="width: 100%; justify-content: center; background: #334155; color: #fff; margin-top: 4px;" onclick="saveProfileDetails()">Save Profile Details</button>
+            </div>
+
+            <div style="margin-bottom: 15px; border-top: 1px dashed var(--border-line); padding-top: 12px;">
+                <h4 style="font-size: 14px; color: var(--accent-gold); margin-bottom: 8px;"><i class="fa-solid fa-money-bill-transfer"></i> Deposit & Withdrawal</h4>
+                <label class="form-label">Deposit Amount (Add Funds)</label>
+                <input type="number" id="depositAmount" class="form-control" placeholder="Enter amount to add">
+                <button class="btn btn-gold" style="width: 100%; justify-content: center; margin-bottom: 8px;" onclick="requestDeposit()">Submit Deposit Request</button>
+                
+                <label class="form-label">Withdrawal Amount</label>
+                <input type="number" id="withdrawAmount" class="form-control" placeholder="Enter amount to withdraw">
+                <button class="btn" style="width: 100%; justify-content: center; background: #25d366; color: #fff;" onclick="requestWithdrawal()">Request Withdrawal</button>
+            </div>
+
+            <button class="btn" style="width: 100%; justify-content: center; background: #e53e3e; color: #fff;" onclick="handleLogout()">Logout Account</button>
+        </div>
+    </div>
+
+    <!-- JavaScript Script -->
+    <script>
+        let defaultMarkets = [
+            ["AAYUSH MORNING", "124-78-378", "10:30 AM", "11:30 AM", "day"],
+            ["SRIDEVI MORNING", "359-70-145", "11:00 AM", "12:00 PM", "day"],
+            ["SRIDEVI", "130-49-234", "11:35 AM", "12:35 PM", "day"],
+            ["TIME BAZAR", "479-02-138", "01:00 PM", "02:00 PM", "day"],
+            ["MADHUR DAY", "145-03-670", "01:15 PM", "02:15 PM", "day"],
+            ["MILAN DAY", "280-05-230", "03:00 PM", "05:00 PM", "day"],
+            ["RAJDHANI DAY", "589-23-148", "03:15 PM", "05:15 PM", "day"],
+            ["SUPREME DAY", "167-44-888", "03:30 PM", "05:30 PM", "day"],
+            ["AAYUSH DAY", "234-90-569", "03:35 PM", "05:35 PM", "day"],
+            ["KALYAN", "120-34-400", "03:45 PM", "05:45 PM", "day"],
+            ["SRIDEVI NIGHT", "110-25-348", "06:30 PM", "07:30 PM", "night"],
+            ["MADHUR NIGHT", "678-12-345", "07:00 PM", "08:00 PM", "night"],
+            ["MILAN NIGHT", "246-29-199", "08:30 PM", "10:30 PM", "night"],
+            ["RAJDHANI NIGHT", "489-11-236", "09:00 PM", "11:00 PM", "night"],
+            ["KALYAN NIGHT", "379-91-489", "09:25 PM", "11:30 PM", "night"],
+            ["MAIN BAZAR", "129-22-679", "09:30 PM", "11:45 PM", "night"],
+            ["AAYUSH BAZAR", "158-40-280", "09:40 PM", "12:05 AM", "night"],
+            ["AAYUSH NIGHT", "230-55-140", "10:00 PM", "12:15 AM", "night"]
+        ];
+
+        let currentUser = JSON.parse(localStorage.getItem("aayush999_logged_user")) || null;
+        let activeMarketForBid = "";
+
+        function updateUIState() {
+            if(currentUser) {
+                document.getElementById("navWallet").textContent = currentUser.wallet;
+                document.getElementById("modalWalletBalance").textContent = currentUser.wallet;
+                document.getElementById("authBtn").innerHTML = `<i class="fa-solid fa-user-check"></i> ${currentUser.name}`;
+                document.getElementById("authBtn").onclick = openWalletModal;
+                if(currentUser.upi) document.getElementById("userUpi").value = currentUser.upi;
+                if(currentUser.bank) document.getElementById("userBank").value = currentUser.bank;
+            } else {
+                document.getElementById("navWallet").textContent = "0";
+                document.getElementById("authBtn").innerHTML = `<i class="fa-solid fa-user"></i> Login`;
+                document.getElementById("authBtn").onclick = openAuthModal;
+            }
+        }
+
+        function openWalletModal() {
+            if(!currentUser) { openAuthModal(); return; }
+            document.getElementById("walletModal").classList.add("open");
+        }
+
+        function loadData() {
+            let sharedData = JSON.parse(localStorage.getItem("aayush999_shared_data"));
+            let markets = (sharedData && sharedData.markets) ? sharedData.markets : defaultMarkets;
+            
+            const marketGrid = document.getElementById("marketGrid");
+            marketGrid.innerHTML = "";
+            markets.forEach((m) => {
+                const card = document.createElement("article");
+                card.className = "market-card";
+                
+                const status = document.createElement("span");
+                status.className = "market-status " + (m[4] === "day" ? "status-day" : "status-night");
+                status.textContent = m[4] === "day" ? "DAY" : "NIGHT";
+
+                const title = document.createElement("h3");
+                title.textContent = m[0];
+
+                const result = document.createElement("div");
+                result.className = "market-result";
+                result.textContent = m[1];
+
+                const times = document.createElement("div");
+                times.className = "market-time";
+                times.innerHTML = `<span>Open: ${m[2]}</span><span>Close: ${m[3]}</span>`;
+
+                const actions = document.createElement("div");
+                actions.className = "chart-actions";
+                
+                ["Jodi Chart", "Pana Chart"].forEach(label => {
+                    const btn = document.createElement("button");
+                    btn.className = "chart-btn";
+                    btn.type = "button";
+                    btn.textContent = label;
+                    btn.addEventListener("click", () => openChart(`${m[0]} — ${label}`));
+                    actions.appendChild(btn);
+                });
+
+                const playBtn = document.createElement("button");
+                playBtn.className = "play-btn";
+                playBtn.innerHTML = `<i class="fa-solid fa-play"></i> Play Online`;
+                playBtn.onclick = () => openBiddingModal(m[0]);
+
+                card.append(status, title, result, times, actions, playBtn);
+                marketGrid.appendChild(card);
+            });
+
+            if(sharedData) {
+                if(sharedData.whatsapp) document.getElementById("waBtnLink").href = "https://wa.me/91" + sharedData.whatsapp;
+                if(sharedData.appLink) document.getElementById("appBtnLink").href = sharedData.appLink;
+                if(sharedData.tickerText) document.getElementById("tickerText").textContent = sharedData.tickerText;
+                if(sharedData.adminUpi) document.getElementById("displayAdminUpi").textContent = "UPI ID: " + sharedData.adminUpi;
+                if(sharedData.adminBank) document.getElementById("displayAdminBank").textContent = "Bank: " + sharedData.adminBank;
+            }
+            updateUIState();
+        }
+
+        loadData();
+        window.addEventListener('storage', loadData);
+
+        // Starline & Jackpot
+        const starline = [["10:30 AM","120-3"],["11:30 AM","340-7"],["12:30 PM","567-8"],["01:30 PM","890-7"],["02:30 PM","145-0"],["03:30 PM","239-4"],["04:30 PM","678-1"],["05:30 PM","456-5"],["06:30 PM","789-4"],["07:30 PM","123-6"],["08:30 PM","345-2"],["09:30 PM","901-0"]];
+        const jackpot = [["10:00 AM","45"],["11:00 AM","89"],["12:00 PM","12"],["01:00 PM","67"],["02:00 PM","34"],["03:00 PM","90"],["04:00 PM","23"],["05:00 PM","78"],["06:00 PM","56"],["07:00 PM","01"],["08:00 PM","44"],["09:00 PM","88"]];
+
+        function renderSlots(containerId, data) {
+            const root = document.getElementById(containerId);
+            root.innerHTML = "";
+            data.forEach(([time, val]) => {
+                const item = document.createElement("div");
+                item.className = "slot-item";
+                item.innerHTML = `<span>${time}</span><strong>${val}</strong>`;
+                root.appendChild(item);
+            });
+        }
+        renderSlots("starlineSlots", starline);
+        renderSlots("jackpotSlots", jackpot);
+
+        // Auth & Modals
+        function openAuthModal() { document.getElementById("authModal").classList.add("open"); }
+        function closeModal(id) { document.getElementById(id).classList.remove("open"); }
+        function toggleAuthMode() {
+            const loginBox = document.getElementById("loginFormContainer");
+            const regBox = document.getElementById("registerFormContainer");
+            const title = document.getElementById("authTitle");
+            if(loginBox.style.display === "none") {
+                loginBox.style.display = "block"; regBox.style.display = "none";
+                title.innerHTML = `<i class="fa-solid fa-user-lock"></i> User Login`;
+            } else {
+                loginBox.style.display = "none"; regBox.style.display = "block";
+                title.innerHTML = `<i class="fa-solid fa-user-plus"></i> User Register`;
+            }
+        }
+
+        function handleRegister() {
+            const name = document.getElementById("regName").value;
+            const mobile = document.getElementById("regMobile").value;
+            const pass = document.getElementById("regPass").value;
+            if(!name || !mobile || !pass) { alert("Please fill all details!"); return; }
+            currentUser = { name, mobile, pass, wallet: 500, upi: "", bank: "" };
+            localStorage.setItem("aayush999_logged_user", JSON.stringify(currentUser));
+            alert("Registration successful! ₹500 welcome bonus added to your wallet.");
+            closeModal("authModal");
+            updateUIState();
+        }
+
+        function handleLogin() {
+            const mobile = document.getElementById("loginMobile").value;
+            const pass = document.getElementById("loginPass").value;
+            if(mobile === "admin" && pass === "admin123") {
+                window.location.href = "admin.html";
+                return;
+            }
+            if(!mobile || !pass) { alert("Enter mobile and password!"); return; }
+            currentUser = { name: "User ("+mobile.slice(-4)+")", mobile, wallet: 1000, upi: "", bank: "" };
+            localStorage.setItem("aayush999_logged_user", JSON.stringify(currentUser));
+            alert("Login successful!");
+            closeModal("authModal");
+            updateUIState();
+        }
+
+        function handleLogout() {
+            currentUser = null;
+            localStorage.removeItem("aayush999_logged_user");
+            closeModal("walletModal");
+            updateUIState();
+            alert("Logged out successfully.");
+        }
+
+        function saveProfileDetails() {
+            if(!currentUser) return;
+            currentUser.upi = document.getElementById("userUpi").value;
+            currentUser.bank = document.getElementById("userBank").value;
+            localStorage.setItem("aayush999_logged_user", JSON.stringify(currentUser));
+            alert("Profile details (UPI/Bank) saved successfully!");
+        }
+
+        function requestDeposit() {
+            const amt = parseInt(document.getElementById("depositAmount").value);
+            if(!amt || amt <= 0) { alert("Enter valid amount"); return; }
+            
+            let requests = JSON.parse(localStorage.getItem("aayush999_admin_requests")) || { deposits: [], withdrawals: [] };
+            requests.deposits.push({ user: currentUser.name, mobile: currentUser.mobile, amount: amt, time: new Date().toLocaleString() });
+            localStorage.setItem("aayush999_admin_requests", JSON.stringify(requests));
+
+            alert("Deposit request of ₹" + amt + " submitted to Admin! Balance will reflect after verification.");
+            document.getElementById("depositAmount").value = "";
+        }
+
+        function requestWithdrawal() {
+            const amt = parseInt(document.getElementById("withdrawAmount").value);
+            if(!currentUser.upi && !currentUser.bank) { alert("Please save your UPI or Bank details first!"); return; }
+            if(!amt || amt <= 0 || amt > currentUser.wallet) { alert("Enter valid withdrawal amount within your balance."); return; }
+            
+            currentUser.wallet -= amt;
+            localStorage.setItem("aayush999_logged_user", JSON.stringify(currentUser));
+            updateUIState();
+
+            let requests = JSON.parse(localStorage.getItem("aayush999_admin_requests")) || { deposits: [], withdrawals: [] };
+            requests.withdrawals.push({ user: currentUser.name, mobile: currentUser.mobile, amount: amt, upi: currentUser.upi || currentUser.bank, time: new Date().toLocaleString() });
+            localStorage.setItem("aayush999_admin_requests", JSON.stringify(requests));
+
+            alert("Withdrawal request of ₹" + amt + " submitted successfully! Payment will be sent to your UPI/Bank shortly.");
+            document.getElementById("withdrawAmount").value = "";
+            closeModal("walletModal");
+        }
+
+        function openBiddingModal(marketName) {
+            if(!currentUser) {
+                alert("Please login first to place online bets!");
+                openAuthModal();
+                return;
+            }
+            activeMarketForBid = marketName;
+            document.getElementById("biddingMarketTitle").textContent = "Place Bid: " + marketName;
+            document.getElementById("biddingModal").classList.add("open");
+        }
+
+        function submitBid() {
+            const amount = parseInt(document.getElementById("bidAmount").value);
+            const digit = document.getElementById("bidDigit").value;
+            const gameType = document.getElementById("gameType").value;
+            if(!digit || !amount || amount < 10) { alert("Enter valid digit and minimum ₹10 amount."); return; }
+            if(currentUser.wallet < amount) { alert("Insufficient wallet balance! Please deposit funds."); return; }
+
+            currentUser.wallet -= amount;
+            localStorage.setItem("aayush999_logged_user", JSON.stringify(currentUser));
+            updateUIState();
+            closeModal("biddingModal");
+            alert(`Bid successfully placed for ${activeMarketForBid} (${gameType}: ${digit}) of ₹${amount}! Good Luck.`);
+            document.getElementById("bidDigit").value = "";
+            document.getElementById("bidAmount").value = "";
+        }
+
+        function openChart(name) {
+            document.getElementById("modalTitle").textContent = name;
+            document.getElementById("modalText").textContent = `Viewing complete historic records, panel data and jodi archives for ${name}. Live updates sync every minute.`;
+            document.getElementById("chartModal").classList.add("open");
+        }
+
+        const greetings = ["Aayush999: Welcome to new beginnings ✨", "नए आरंभ में आपका स्वागत है ✨", "નવી શરૂઆતમાં તમારું સ્વાગત છે ✨", "புதிய தொடக்கத்திற்கு வரவேற்கிறோம் ✨", "ಹೊಸ ಆರಂಭಕ್ಕೆ ನಿಮಗೆ ಸ್ವಾಗತ ✨", "కొత్త ఆరంభానికి మీకు స్వాగతం ✨"];
+        let greetingIdx = 0;
+        const rotator = document.getElementById("rotator");
+        setInterval(() => {
+            rotator.style.opacity = 0;
+            setTimeout(() => {
+                greetingIdx = (greetingIdx + 1) % greetings.length;
+                rotator.textContent = greetings[greetingIdx];
+                rotator.style.opacity = 1;
+            }, 300);
+        }, 3000);
+
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
